@@ -6,6 +6,29 @@
     <title>Infinite Scroll</title>
 </head>
 <body>
-        <h2>This is the Infinite scroll</h2>
+<div class="container" />
+        <script>
+            const URL = `http://api.adorable.io/avatars/`;
+            const container = document.querySelector('.container');
+
+            function getMoreImages(num = 10) {
+                let i = 0;
+                while(i < num) {
+                    const img = document.createElement('img');
+                    img.src = `${URL}${Math.floor(Math.random() * 100)}`
+                    console.log(img.src);
+                    container.appendChild(img);
+                    i++;
+                }
+            } 
+
+            getMoreImages();
+
+            window.addEventListener('scroll', () => {
+                if(window.innerHeight + window.scrollY >= window.document.body.offsetHeight) {
+                    getMoreImages();
+                }
+            })
+        </script>
 </body>
 </html>
