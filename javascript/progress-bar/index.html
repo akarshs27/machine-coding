@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .progressBar {
+        background-color:crimson;
+        height: 12px;
+        border-radius: 16px;
+        width: 0;
+        margin: 16px 0;
+    }
+
+    .fullWidth {
+        width: 100%;
+    }
+
+    button {
+        margin-bottom: 16px;
+    }
+</style>
+<body>
+    <button onclick="addProgressBar()">Add progress Bar</button>
+    <div class="root"></div>
+
+    <script>
+        const root = document.querySelector('.root');
+        let count = 0
+
+        function addProgressBar() {
+           count = count + 1;
+           if(count > 0) {
+            createProgressBar();
+           }
+        }
+        
+        function createProgressBar(n = 2) {
+            const element = document.createElement('div');
+            element.classList.add('progressBar');
+            root.appendChild(element);
+            element.style = `transition: width ${n}s ease`;
+            setTimeout(() => {
+                element.classList.add('fullWidth')
+            },50);
+            count--;
+        }
+  
+    </script>
+</body>
+</html>
