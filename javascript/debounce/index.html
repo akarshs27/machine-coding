@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce with leading and trailing option</title>
+</head>
+<body>
+    <input type="search" placeholder="Seach..." class="search" />
+    <script>
+
+        function onChange(event) {
+             console.log(event.target.value);
+        }
+
+        const debouncedInput = debounce(onChange, 500, {trailing: true});
+
+        // function debounce(fn, delay) {    
+        //     let timer;
+        //     return (...args) => {
+        //         let context = this;
+        //         if(timer) clearTimeout(timer);
+        //         timer = setTimeout(() => {
+        //                 fn.apply(context, args);
+        //         },delay);
+        //     }
+        // }
+
+        function debounce(fn, delay, option = {leading: false, trailing: true}) {
+            let timer;
+            let isLeadingInvoked = false;
+
+            return (...args) => {
+                let context = this;
+                if(timer) clearTimeout(timer);
+
+                if(option.leading && !timer) {
+                    fn.apply(this, args);
+                    isLeadingInvoked = true;
+                } else {
+                    isLeadingInvoked = false;
+                }
+
+                timer = setTimeout(() => {
+                    if(option.trailing && !isLeadingInvoked) {
+                        fn.apply(context, args);
+                    }
+                },delay);
+            }
+        }
+
+
+        const search = document.querySelector('.search');
+        search.addEventListener('keyup', debouncedInput);
+
+      
+    </script>
+</body>
+</html>
