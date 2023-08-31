@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throttling</title>
+</head>
+<body>
+    <button>Click Me</button>
+    <script>
+        
+        function throttle(fn, limit) {
+            let flag = true;
+            return function (...args) {
+                let context = this;
+                if(flag) {
+                    fn.apply(context, args);
+                    flag = false;
+                    setTimeout(() => {
+                        flag = true;
+                    }, limit);
+                }
+            }
+        }
+        
+        function calculateResize() {
+            console.log("Resizing");
+        }
+
+        const throttleResize = throttle(calculateResize, 1000);
+
+        window.addEventListener('resize', throttleResize);
+    </script>
+</body>
+</html>
