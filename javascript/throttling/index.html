@@ -6,9 +6,10 @@
     <title>Throttling</title>
 </head>
 <body>
-    <button>Click Me</button>
+    <button id="btn">Click Me</button>
     <script>
         
+        // Time Throttle
         function throttle(fn, limit) {
             let flag = true;
             return function (...args) {
@@ -22,14 +23,41 @@
                 }
             }
         }
-        
         function calculateResize() {
             console.log("Resizing");
         }
-
+        
         const throttleResize = throttle(calculateResize, 1000);
-
         window.addEventListener('resize', throttleResize);
+
+
+        // Count Throttle
+        const btn = document.querySelector('#btn');
+        let throttleButtonClickCount = 0;
+
+        function throttleCount(fn, count) {
+            let counter = 0;
+            return function(...args) {
+                let context = this;
+                if(++counter !== count) return;
+                counter = 0;
+                fn.apply(context, args);
+            }
+        }
+
+        function handleButtonClick() {
+            throttleButtonClickCount++;
+            console.log("Button clicked", throttleButtonClickCount);
+        }
+
+        const throttledCount = throttleCount(handleButtonClick, 5)
+        btn.addEventListener('click', throttledCount);
+
+
+        // Leading and Trailing Throttle
+        function throttleWithOptions(fn, limit, option = {leading: false, trailing: true}) {
+
+        }
     </script>
 </body>
 </html>
