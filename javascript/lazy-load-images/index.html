@@ -6,43 +6,69 @@
     <title>Lazy load images</title>
 </head>
 <style>
-    img {
-        height: 500px;
-        width: 500px;
+    body {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
     }
+
+    img {
+        height: 300px;
+        width: 300px;
+        opacity: 0;
+    }
+
     div {
-        height: 200vh;
-        width: 400px;
+        height: 300px;
+        width: 300px;
+        margin-bottom: 24px;
+        background-color: aquamarine;
     }
 </style>
 <body>
-    <img src="https://cdn.pixabay.com/photo/2017/03/27/14/53/canoe-2179196_1280.jpg" alt="1"/>
-    <img src="https://cdn.pixabay.com/photo/2017/03/28/12/00/indian-flag-2181887_1280.jpg" alt="2"/>
     <div>
-        Something
+        <img  src="https://cdn.pixabay.com/photo/2017/03/27/14/53/canoe-2179196_1280.jpg" alt="1"/>
     </div>
-    <img src="https://cdn.pixabay.com/photo/2023/09/06/00/22/broccoli-8236024_1280.jpg" loading="lazy" alt="3"/>
-     <img src="https://cdn.pixabay.com/photo/2023/09/06/12/39/flower-8236993_1280.jpg" loading="lazy" alt="4"/>
-    <img src="https://cdn.pixabay.com/photo/2023/09/06/19/50/bird-8237839_1280.jpg" loading="lazy" alt="5"/>
-    <img src="https://cdn.pixabay.com/photo/2023/09/06/05/56/flowers-8236412_1280.jpg" loading="lazy" alt="6"/>
-    <img src="https://cdn.pixabay.com/photo/2023/09/06/15/01/horses-8237300_1280.jpg" loading="lazy" alt="7"/>
-    <img src="https://cdn.pixabay.com/photo/2023/09/06/05/16/flowers-8236357_1280.jpg" loading="lazy" alt="8"/>
-    <img src="https://cdn.pixabay.com/photo/2023/09/06/14/17/berries-8237212_1280.jpg" loading="lazy" alt="9"/>
-    <img src="https://cdn.pixabay.com/photo/2023/09/05/23/00/butterfly-8235958_1280.jpg" loading="lazy" alt="10"/>
-    <img src="https://cdn.pixabay.com/photo/2023/09/06/06/01/bee-8236427_1280.jpg" loading="lazy" alt="11"/>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2017/03/28/12/00/indian-flag-2181887_1280.jpg" alt="2"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/06/00/22/broccoli-8236024_1280.jpg"  alt="3"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/06/12/39/flower-8236993_1280.jpg"  alt="4"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/06/19/50/bird-8237839_1280.jpg"  alt="5"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/06/05/56/flowers-8236412_1280.jpg"  alt="6"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/06/15/01/horses-8237300_1280.jpg"  alt="7"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/06/05/16/flowers-8236357_1280.jpg"  alt="8"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/06/14/17/berries-8237212_1280.jpg"  alt="9"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/05/23/00/butterfly-8235958_1280.jpg"  alt="10"/>
+    </div>
+    <div>
+        <img  src="https://cdn.pixabay.com/photo/2023/09/06/06/01/bee-8236427_1280.jpg"  alt="11"/>
+    </div>
+  
     <script>
         const images = document.querySelectorAll('img');
 
-        function checkLoading() {
-            console.log('Loaded the image');
-        }
-
         for(let i = 0; i < images.length; i++) {
-            if(images[i]) {
-                console.log(`Image loaded with alt = ${images[i].alt}`);
-            } else {
-                images[i].addEventListener('load', checkLoading);
-            }
+                images[i].addEventListener('load', () => {
+                        images[i].parentElement.style.backgroundColor = 'transparent';
+                        images[i].style.opacity = '1';
+                        console.log("2",images[i]);
+                });
         }
        
 
