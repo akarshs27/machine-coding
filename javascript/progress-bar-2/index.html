@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+</head>
+<style>
+body {
+  font-family: sans-serif;
+}
+
+.wrapper {
+  margin: 40px;
+}
+
+.progress-wrapper {
+  background-color: aliceblue;
+  width: 320px;
+  height: 40px;
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.progress {
+  background-color: aquamarine;
+  border-radius: 8px;
+  height: 30px;
+  width: 0%;
+  position: relative;
+  transition: width 0.5s ease;
+}
+
+.progress-label {
+  position: absolute;
+  right: 12px;
+  top: 5px;
+}
+
+</style>
+
+<body>
+<div class="wrapper">
+    <div class="progress-wrapper">
+        <div class="progress">
+        <span class="progress-label">0%</span>
+        </div>
+    </div>
+    <button class="start">Start</button>
+</div>
+
+<script>
+    const progressLabel = document.querySelector(".progress-label");
+    const progressBar = document.querySelector(".progress");
+    const startButton = document.querySelector(".start");
+
+    function throttle(fn, limit) {
+        let flag = true;
+        return (...args) => {
+            let context = this;
+            if (flag) {
+            fn.apply(context, args);
+            flag = false;
+            setTimeout(() => {
+                flag = true;
+            }, limit);
+            }
+        };
+    }
+
+    function runProgress() {
+        let value = 0;
+        let timer;
+        timer = setInterval(() => {
+            if (value === 90) {
+            clearInterval(timer);
+            }
+        value = value + 10;
+        progressBar.style.width = `${value}%`;
+        progressLabel.innerText = `${value}%`;
+        }, 500);
+    }
+
+    const throttledProgress = throttle(runProgress, 5000);
+    startButton.addEventListener("click", throttledProgress);
+
+</script>
+</body>
+</html>
