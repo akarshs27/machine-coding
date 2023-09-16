@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.traffic-wrapper {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: black;
+  width: min-content;
+  border-radius: 16px;
+}
+
+.each-light {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background-color: ghostwhite;
+}
