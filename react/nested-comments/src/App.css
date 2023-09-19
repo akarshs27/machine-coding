@@ -1,0 +1,14 @@
+.App {
+  padding: 48px;
+}
+
+.add-comment-wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.comments {
+  border: 1px solid gray;
+  padding: 8px 12px;
+  width: 200px;
+}
