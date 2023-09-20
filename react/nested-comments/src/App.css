@@ -12,3 +12,19 @@
   padding: 8px 12px;
   width: 200px;
 }
+
+.parent-comment {
+  padding: 8px 8px;
+  color: red;
+  border: 1px solid red;
+  width: 320px;
+  margin: 16px;
+}
+
+.child-comment {
+  padding: 8px 16px;
+  color: blue;
+  border: 1px solid blue;
+  width: 320px;
+  margin: 16px;
+}

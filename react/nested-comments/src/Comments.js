@@ -4,7 +4,9 @@ import { useCommentsContext } from "./useCommentsContext";
 
 const Comments = () => {
   const [inputText, setInputText] = useState("");
-  const { state } = useCommentsContext();
+  const { state, addNewComment } = useCommentsContext();
+
+  console.log("State", state);
 
   return (
     <div>
@@ -14,10 +16,17 @@ const Comments = () => {
           onChange={(event) => setInputText(event.target.value)}
           placeholder="Add comment"
         />
-        <button>Type</button>
+        <button
+          onClick={() => {
+            addNewComment(inputText);
+            setInputText("");
+          }}
+        >
+          Type
+        </button>
       </div>
       <div className="nested-wrapper">
-        {state.items.length > 0 && <NestedComment data={state} />}
+        {state?.items?.length > 0 && <NestedComment data={state} />}
       </div>
     </div>
   );
