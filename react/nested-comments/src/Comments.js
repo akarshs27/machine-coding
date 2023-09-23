@@ -1,34 +1,63 @@
 import { useState } from "react";
-import NestedComment from "./NestedComments";
-import { useCommentsContext } from "./useCommentsContext";
+import "./App.css";
 
-const Comments = () => {
-  const [inputText, setInputText] = useState("");
-  const { state, addNewComment } = useCommentsContext();
+const Comments = ({ comment, onAddComment }) => {
+  const [input, setInput] = useState("");
+  const [openReplyInput, setOpenReplyInput] = useState(false);
+  const [replyInput, setReplyInput] = useState("");
 
-  console.log("State", state);
+  function handleAddComment() {
+    onAddComment(comment.id, replyInput);
+    setOpenReplyInput(false);
+    setReplyInput("");
+  }
 
   return (
-    <div>
-      <div className="add-comment-wrapper">
-        <input
-          value={inputText}
-          onChange={(event) => setInputText(event.target.value)}
-          placeholder="Add comment"
-        />
-        <button
-          onClick={() => {
-            addNewComment(inputText);
-            setInputText("");
-          }}
-        >
-          Type
-        </button>
-      </div>
-      <div className="nested-wrapper">
-        {state?.items?.length > 0 && <NestedComment data={state} />}
-      </div>
-    </div>
+    <>
+      {comment.id === 1 ? (
+        <div>
+          <input
+            type="text"
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder="Type"
+          />
+          <button
+            onClick={() => {
+              onAddComment(comment.id, input);
+              setInput("");
+            }}
+          >
+            Add Comment
+          </button>
+        </div>
+      ) : (
+        <div className="each-comment">
+          <span>{comment.name}</span>
+          <div>
+            <button onClick={() => setOpenReplyInput(true)}>Reply</button>
+            <button onClick={() => {}}>Delete</button>
+          </div>
+          {openReplyInput && (
+            <div>
+              <input
+                type="text"
+                value={replyInput}
+                onChange={(event) => setReplyInput(event.target.value)}
+              />
+              <button onClick={handleAddComment}>Reply</button>
+              <button onClick={() => setOpenReplyInput(false)}>Cancel</button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {comment?.items?.map((each) => {
+        return (
+          <Comments comment={each} key={each.id} onAddComment={onAddComment} />
+        );
+      })}
+    </>
   );
 };
 
