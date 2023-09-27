@@ -7,6 +7,8 @@ const Comments = ({ comment, onAddComment }) => {
   const [replyInput, setReplyInput] = useState("");
 
   function handleAddComment() {
+    console.log("running");
+    console.log("comment.id", comment.id);
     onAddComment(comment.id, replyInput);
     setOpenReplyInput(false);
     setReplyInput("");
@@ -24,6 +26,7 @@ const Comments = ({ comment, onAddComment }) => {
           />
           <button
             onClick={() => {
+              console.log("i also run");
               onAddComment(comment.id, input);
               setInput("");
             }}
@@ -36,7 +39,7 @@ const Comments = ({ comment, onAddComment }) => {
           <span>{comment.name}</span>
           <div>
             <button onClick={() => setOpenReplyInput(true)}>Reply</button>
-            <button onClick={() => {}}>Delete</button>
+            {/* <button onClick={() => {}}>Delete</button> */}
           </div>
           {openReplyInput && (
             <div>

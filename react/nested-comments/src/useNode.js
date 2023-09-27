@@ -10,7 +10,7 @@ export function useNode() {
     }
 
     let latestNode = [];
-    latestNode = tree.items.map((each) => insertNode(each, each.id, item));
+    latestNode = tree.items.map((each) => insertNode(each, commentId, item));
     return { ...tree, items: latestNode };
   }
 
