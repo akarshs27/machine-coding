@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Comments from "./Comments";
 import { useNode } from "./useNode";
 import "./App.css";
@@ -10,10 +10,15 @@ const initialComment = {
 
 function App() {
   const [commentData, setCommentsData] = useState(initialComment);
-  const { insertNode } = useNode();
+  const { insertNode, deleteNode } = useNode();
 
   const onAddComment = (commentId, item) => {
     const newCommentStructure = insertNode(commentData, commentId, item);
+    setCommentsData(newCommentStructure);
+  };
+
+  const onDeleteComment = (commentId) => {
+    const newCommentStructure = deleteNode(commentData, commentId);
     setCommentsData(newCommentStructure);
   };
 
@@ -21,7 +26,11 @@ function App() {
 
   return (
     <div className="App">
-      <Comments comment={commentData} onAddComment={onAddComment} />
+      <Comments
+        comment={commentData}
+        onAddComment={onAddComment}
+        onDeleteComment={onDeleteComment}
+      />
     </div>
   );
 }

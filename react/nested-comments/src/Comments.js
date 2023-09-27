@@ -1,14 +1,12 @@
 import { useState } from "react";
 import "./App.css";
 
-const Comments = ({ comment, onAddComment }) => {
+const Comments = ({ comment, onAddComment, onDeleteComment }) => {
   const [input, setInput] = useState("");
   const [openReplyInput, setOpenReplyInput] = useState(false);
   const [replyInput, setReplyInput] = useState("");
 
   function handleAddComment() {
-    console.log("running");
-    console.log("comment.id", comment.id);
     onAddComment(comment.id, replyInput);
     setOpenReplyInput(false);
     setReplyInput("");
@@ -26,7 +24,6 @@ const Comments = ({ comment, onAddComment }) => {
           />
           <button
             onClick={() => {
-              console.log("i also run");
               onAddComment(comment.id, input);
               setInput("");
             }}
@@ -39,7 +36,7 @@ const Comments = ({ comment, onAddComment }) => {
           <span>{comment.name}</span>
           <div>
             <button onClick={() => setOpenReplyInput(true)}>Reply</button>
-            {/* <button onClick={() => {}}>Delete</button> */}
+            <button onClick={() => onDeleteComment(comment.id)}>Delete</button>
           </div>
           {openReplyInput && (
             <div>
@@ -57,7 +54,12 @@ const Comments = ({ comment, onAddComment }) => {
 
       {comment?.items?.map((each) => {
         return (
-          <Comments comment={each} key={each.id} onAddComment={onAddComment} />
+          <Comments
+            comment={each}
+            key={each.id}
+            onAddComment={onAddComment}
+            onDeleteComment={onDeleteComment}
+          />
         );
       })}
     </>

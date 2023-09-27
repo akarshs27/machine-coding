@@ -14,7 +14,23 @@ export function useNode() {
     return { ...tree, items: latestNode };
   }
 
+  function deleteNode(tree, commentId) {
+    for (let i = 0; i < tree.items.length; i++) {
+      let currentItem = tree.items[i];
+      console.log("currentItem", currentItem);
+      if (currentItem.id === commentId) {
+        console.log("Going here");
+        tree.items.splice(i, 1);
+        console.log("Tree", tree);
+        return tree;
+      } else {
+        deleteNode(currentItem, commentId);
+      }
+    }
+  }
+
   return {
     insertNode,
+    deleteNode,
   };
 }
