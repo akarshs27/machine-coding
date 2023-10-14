@@ -1,12 +1,33 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./App.css";
 
 const Multiselect = ({ value, options, onChange }) => {
   const [showOptions, setShowOptions] = useState(false);
+  const multiSelectRef = useRef(null);
 
   function getOptionName(item) {
     return options.find((each) => each.name === item).value;
   }
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        multiSelectRef.current &&
+        !multiSelectRef.current.contains(event.target)
+      ) {
+        console.log(
+          "multiSelectRef",
+          multiSelectRef.current.contains(event.target)
+        );
+        setShowOptions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   function handleClearAll() {
     onChange([]);
@@ -22,15 +43,12 @@ const Multiselect = ({ value, options, onChange }) => {
 
   return (
     <div
+      ref={multiSelectRef}
       tabIndex={0}
       className="multi-select-wrapper"
       onClick={() => {
         setShowOptions(!showOptions);
       }}
-      // onBlur={() => {
-      //   console.log("running2");
-      //   setShowOptions(false);
-      // }}
     >
       <div className="selected-wrapper">
         {
@@ -53,16 +71,12 @@ const Multiselect = ({ value, options, onChange }) => {
       <span
         className="cross-icon"
         onClick={(event) => {
-          event.stopPropagation();
           handleClearAll();
         }}
       >
         &times;
       </span>
-      <ul
-        className={`options-wrapper ${showOptions && "show"}`}
-        onClick={(event) => event.stopPropagation()}
-      >
+      <ul className={`options-wrapper ${showOptions && "show"}`}>
         {options.map((each) => (
           <li
             className="each-option-wrapper"
