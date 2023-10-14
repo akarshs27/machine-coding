@@ -3,6 +3,7 @@ import "./App.css";
 
 const Multiselect = ({ value, options, onChange }) => {
   const [showOptions, setShowOptions] = useState(false);
+
   function getOptionName(item) {
     return options.find((each) => each.name === item).value;
   }
@@ -24,7 +25,6 @@ const Multiselect = ({ value, options, onChange }) => {
       tabIndex={0}
       className="multi-select-wrapper"
       onClick={() => {
-        console.log("running 1");
         setShowOptions(!showOptions);
       }}
       // onBlur={() => {
@@ -69,16 +69,14 @@ const Multiselect = ({ value, options, onChange }) => {
             key={each.name}
             onClick={(event) => {
               event.stopPropagation();
-              console.log("Clicking2");
             }}
           >
             <input
               type="checkbox"
-              isChecked={value.includes(each)}
+              checked={value.includes(each.name)}
               id={each.name}
               onChange={(event) => {
                 event.stopPropagation();
-                console.log("Clicking1");
                 onValuesChange(each.name);
               }}
             />
