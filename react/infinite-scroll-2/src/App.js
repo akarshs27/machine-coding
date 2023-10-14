@@ -26,6 +26,12 @@ function App() {
     }
   }
 
+  const renderItem = ({ title }, key, ref) => (
+    <div key={key} ref={ref}>
+      {title}
+    </div>
+  );
+
   return (
     <div className="App">
       <input
@@ -35,9 +41,9 @@ function App() {
       />
 
       <InfiniteScroll
-        //  renderListItem={}
+        renderListItem={renderItem}
         getData={getData}
-        // listItem={}
+        listItem={data}
         query={query}
       />
     </div>
