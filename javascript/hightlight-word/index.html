@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .highlight {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p class="text">My name is Akarsh. I am looking for a job change</p>
+    </div>
+    <script>
+      const textStr = document.querySelector(".text");
+      const keywords = ["Akarsh", "look", "ing", "job"];
+
+      const highlightWords = (str, keywords) => {
+        const uniqueKeywords = new Set(keywords);
+        const words = str.split(" ");
+        const result = words.map((word) => {
+          let output = "";
+
+          if (uniqueKeywords.has(word)) {
+            output = `<span class="highlight">${word}</span>`;
+          } else {
+            for (let i = 0; i < word.length; i++) {
+              const prefix = word.slice(0, i + 1);
+              const suffix = word.slice(i + 1);
+              if (uniqueKeywords.has(prefix) && uniqueKeywords.has(suffix)) {
+                output = `<span class="highlight">${prefix + suffix}</span>`;
+              } else if (
+                uniqueKeywords.has(prefix) &&
+                !uniqueKeywords.has(suffix)
+              ) {
+                output = `<span class="highlight">${prefix}</span>${suffix}`;
+              } else if (
+                !uniqueKeywords.has(prefix) &&
+                uniqueKeywords.has(suffix)
+              ) {
+                output = `${prefix}<span class="highlight">${suffix}</span>`;
+              }
+            }
+          }
+
+          return output !== "" ? output : word;
+        });
+
+        return result.join(" ");
+      };
+
+      window.addEventListener("load", () => {
+        const updatedStr = highlightWords(textStr.innerHTML, keywords);
+        console.log("updatedStr", updatedStr);
+        textStr.innerHTML = updatedStr;
+      });
+    </script>
+  </body>
+</html>
