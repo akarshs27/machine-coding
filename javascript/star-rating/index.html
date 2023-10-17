@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Star Rating</title>
+    <style>
+      .star-conatiner {
+        margin: 48px;
+      }
+      .star {
+        height: 48px;
+        width: 48px;
+        cursor: pointer;
+      }
+      .star-count {
+        font-size: 20px;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="star-container"></div>
+    <div class="star-count"></div>
+
+    <script>
+      const starContainer = document.querySelector(".star-container");
+      let active = -1;
+
+      for (let i = 0; i < 5; i++) {
+        const star = document.createElement("img");
+        star.classList.add("star");
+        star.src = "./star.png";
+        starContainer.appendChild(star);
+
+        star.addEventListener("mouseover", () => onHover(i));
+        star.addEventListener("mouseleave", onStarOut);
+        star.addEventListener("click", () => onStarClick(i));
+      }
+
+      let stars = document.querySelectorAll(".star");
+
+      function fill(rating) {
+        for (let i = 0; i < 5; i++) {
+          if (i <= rating) {
+            stars[i].src = "./star-filled.png";
+          } else {
+            stars[i].src = "./star.png";
+          }
+        }
+      }
+
+      function onHover(i) {
+        fill(i);
+      }
+
+      function onStarOut() {
+        fill(active);
+      }
+
+      function onStarClick(i) {
+        console.log(i);
+        active = i;
+        document.querySelector(".star-count").innerHTML = i + 1;
+        fill(i);
+      }
+    </script>
+  </body>
+</html>
