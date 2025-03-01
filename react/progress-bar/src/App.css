@@ -1,0 +1,13 @@
+.outer-bar {
+  border: 1px solid black;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.inner-bar {
+  background-color: aquamarine;
+  color: black;
+  text-align: right;
+  transition: 1s ease-in;
+}
