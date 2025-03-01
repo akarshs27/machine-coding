@@ -1,0 +1,11 @@
+.each-product {
+    width: 140px;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 8px;
+}
+
+.each-product img {
+    width: 120px;
+    height: 120px;
+}
