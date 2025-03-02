@@ -1,0 +1,26 @@
+.App {
+  padding: 12px;
+}
+
+input {
+  width: 320px;
+}
+
+.recipe-wrapper {
+  border: 1px solid black;
+  width: 320px;
+  max-height: 400px;
+  overflow-y: scroll;
+  margin-top: 2px;
+  border-radius: 2px;
+}
+
+.each-recipe {
+  display: block;
+  padding: 4px;
+}
+
+.each-recipe:hover {
+  cursor: pointer;
+  background-color: beige;
+}
