@@ -1,0 +1,35 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cell {
+  height: 120px;
+  width: 120px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cell.filled {
+  background-color: aquamarine;
+  border: 1px solid aquamarine;
+}
+
+.empty-cell {
+  height: 120px;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px;
+  border-radius: 4px;
+  visibility: hidden;
+  cursor: not-allowed;
+}
