@@ -1,0 +1,29 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 50px);
+  grid-template-rows: repeat(8, 50px);
+  border: 1px solid black;
+  width: 400px;
+  height: 400px;
+}
+
+.cell {
+  cursor: pointer;
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.light {
+  background-color: white;
+}
+
+.dark {
+  background-color: black;
+}
