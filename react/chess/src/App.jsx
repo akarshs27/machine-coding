@@ -26,7 +26,7 @@ function App() {
     if (rowIndex === hoverRow && colIndex === hoverColumn) return "aqua";
 
     if (Math.abs(rowIndex - hoverRow) === Math.abs(colIndex - hoverColumn))
-      return "blue";
+      return "red";
   }
 
   return (
