@@ -1,0 +1,54 @@
+.App {
+  padding: 24px;
+}
+
+.stepper-wrapper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.each-stepper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+}
+
+.each-wrapper {
+  width: 36px;
+  height: 36px;
+  background-color: lightgrey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.active {
+  background-color: lightseagreen;
+  color: #fff;
+}
+
+.complete {
+  background-color: lightgreen;
+  color: #fff;
+}
+
+.progress-bar {
+  position: absolute;
+  width: calc(100% - 36px);
+  background-color: lightgray;
+  height: 4px;
+  top: 25%;
+  z-index: 1;
+  border-radius: 4px;
+  margin: 0 18px;
+}
+
+.progress {
+  background-color: lightgreen;
+  height: 4px;
+}
