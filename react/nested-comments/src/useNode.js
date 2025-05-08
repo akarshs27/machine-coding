@@ -15,18 +15,18 @@ export function useNode() {
   }
 
   function deleteNode(tree, commentId) {
-    for (let i = 0; i < tree.items.length; i++) {
-      let currentItem = tree.items[i];
-      console.log("currentItem", currentItem);
-      if (currentItem.id === commentId) {
-        console.log("Going here");
-        tree.items.splice(i, 1);
-        console.log("Tree", tree);
-        return tree;
-      } else {
-        deleteNode(currentItem, commentId);
-      }
+    const filteredItems = tree.items
+      .map((item) => deleteNode(item, id))
+      .filter((item) => item !== null);
+
+    if (tree.id === id) {
+      return null;
     }
+
+    return {
+      ...tree,
+      items: filteredItems,
+    };
   }
 
   return {
