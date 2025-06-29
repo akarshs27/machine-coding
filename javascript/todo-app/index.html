@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 8px;
+        padding: 0;
+      }
+
+      .todo-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .each-todo {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        border-bottom: 1px solid black;
+        width: 200px;
+      }
+
+      .completed {
+        text-decoration: line-through;
+      }
+
+      button {
+        height: 24px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>
+        <input type="text" class="input-todo" />
+        <button class="add-todo" type="button">Add Todo</button>
+        <div class="todo-list"></div>
+      </div>
+    </div>
+
+    <script>
+      const inputEl = document.querySelector(".input-todo");
+      const addTodoBtn = document.querySelector(".add-todo");
+      const todoContainer = document.querySelector(".todo-list");
+
+      const todoList = [];
+
+      function renderTodo() {
+        todoContainer.innerHTML = "";
+
+        todoList.forEach((todo, index) => {
+          const todoEl = document.createElement("div");
+          todoEl.classList.add("each-todo");
+
+          const completedEl = document.createElement("input");
+          completedEl.type = "checkbox";
+          completedEl.checked = todo.completed;
+          completedEl.addEventListener("change", () => {
+            todoList[index].completed = !todoList[index].completed;
+            renderTodo();
+          });
+
+          const textEl = document.createElement("p");
+          textEl.classList.add(todo.completed ? "completed" : "not-completed");
+          textEl.textContent = todo.text;
+
+          const editBtn = document.createElement("button");
+          editBtn.textContent = "Edit";
+
+          editBtn.addEventListener("click", () => {
+            const editInput = document.createElement("input");
+            editInput.type = "text";
+            editInput.value = todo.text;
+            todoEl.replaceChild(editInput, textEl);
+            editInput.focus();
+
+            function saveEditedTodo() {
+              const updatedText = editInput.value.trim();
+              if (updatedText) {
+                todoList[index].text = updatedText;
+                renderTodo();
+              }
+            }
+
+            editInput.addEventListener("blur", saveEditedTodo);
+            editInput.addEventListener("keydown", (e) => {
+              if (e.key === "Enter") {
+                saveEditedTodo();
+              }
+            });
+          });
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.innerHTML = "Delete";
+          deleteBtn.addEventListener("click", () => {
+            todoList.splice(index, 1);
+            renderTodo();
+          });
+
+          todoEl.appendChild(completedEl);
+          todoEl.appendChild(textEl);
+          todoEl.appendChild(editBtn);
+          todoEl.appendChild(deleteBtn);
+
+          todoContainer.appendChild(todoEl);
+        });
+      }
+
+      addTodoBtn.addEventListener("click", () => {
+        const inputVal = inputEl.value.trim();
+        if (inputVal.trim().length > 0) {
+          todoList.push({ text: inputVal, completed: false, id: Date.now() });
+          inputEl.value = "";
+          renderTodo();
+        }
+      });
+    </script>
+  </body>
+</html>
